@@ -90,7 +90,7 @@ const game = (function Board(){
     const resetGame = ()=>{
         for(let i = 0;i<3;i++){
             for(let j=0;j<3;j++){
-                gameBoard[i][j] = '-'
+                gameBoard[i][j] = '-';
             }
         }
         numberOfTurns = 0
@@ -99,13 +99,14 @@ const game = (function Board(){
     const endGame = (isWin)=>{
         if(isWin){
             if(symbol=='X'){
-               gameSeries.giveScoreToFirstPlayer()
+               gameSeries.giveScoreToFirstPlayer();
 
             }
             else{
-               gameSeries.giveScoreToSecondPlayer()
+               gameSeries.giveScoreToSecondPlayer();
+            }
         }
-        gameSeries.gameEnd()
+    gameSeries.gameEnd()
     }
 
 
@@ -116,40 +117,7 @@ const game = (function Board(){
 
 
 
-const gameDom = (function Playground(){
-    gameSeries.gameStart()
-    let squareDiv = document.querySelectorAll('.square');
-    const squareDivArray = Array.from(squareDiv);
 
-    squareDivArray.forEach((element)=>{
-        element.addEventListener('click',()=>{
-            //elements id is square$$ eg 11
-            if(element.textContent !=''){
-                return 0;
-            }
-            let position  = element.id.slice(-2);
-            element.textContent = game.getCurrentSymbol()
-            game.playGame(position)
-
-
-
-        })
-
-    })
-
-
-
-    const resetBoard = ()=>{
-        squareDivArray.forEach((element)=>{
-            element.textContent = '';
-        })
-        game.resetGame()
-    }
-    const resetButton = document.querySelector('.reset')
-    resetButton.addEventListener('click',resetBoard)
-    
-
-} )()
 
 
 const gameSeries = (function Series(){
@@ -196,4 +164,40 @@ const gameSeries = (function Series(){
 
     return {gameStart,giveScoreToFirstPlayer,giveScoreToSecondPlayer,setPlayerNames,gameEnd,getPlayerNames,getScores,retartGame}
 })()
+
+
+const gameDom = (function Playground(){
+    gameSeries.gameStart()
+    let squareDiv = document.querySelectorAll('.square');
+    const squareDivArray = Array.from(squareDiv);
+
+    squareDivArray.forEach((element)=>{
+        element.addEventListener('click',()=>{
+            //elements id is square$$ eg 11
+            if(element.textContent !=''){
+                return 0;
+            }
+            let position  = element.id.slice(-2);
+            element.textContent = game.getCurrentSymbol()
+            game.playGame(position)
+
+
+
+        })
+
+    })
+
+
+
+    const resetBoard = ()=>{
+        squareDivArray.forEach((element)=>{
+            element.textContent = '';
+        })
+        game.resetGame()
+    }
+    const resetButton = document.querySelector('.reset')
+    resetButton.addEventListener('click',resetBoard)
+    
+
+} )()
 
