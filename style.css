@@ -12,34 +12,34 @@
     grid-template-columns: repeat(3,1fr);
 }
 
-#square1{
+#square11{
     border-right: var(--square-border-style);
     border-bottom: var(--square-border-style) ;
 }
-#square2{
+#square12{
     border-right: var(--square-border-style);
     border-bottom: var(--square-border-style) ;
 }
-#square3{
+#square13{
     border-bottom: var(--square-border-style) ;
 }
-#square4{
+#square21{
     border-bottom: var(--square-border-style) ;
     border-right: var(--square-border-style);
 }
 
-#square5{
+#square22{
     border-bottom: var(--square-border-style) ;
     border-right: var(--square-border-style);
 }
-#square6{
+#square23{
     border-bottom: var(--square-border-style) ;
 }
-#square7{
+#square31{
     
     border-right: var(--square-border-style);
 }
-#square8{
+#square32{
     
     border-right: var(--square-border-style);
 }

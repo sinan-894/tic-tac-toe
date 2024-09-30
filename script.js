@@ -7,28 +7,19 @@ const game = (function Board(){
     let symbol = 'X';
     let numberOfTurns = 0;
 
-    const startGame = ()=>{
-        console.log();
-        for(let i=0;i<9;i++){
-            playGame(symbol)
-            symbol = (symbol=='X')?'O':'X'
-        }
-        
-    }
 
-    const storeInputInPosition = (position,symbol)=>{
+    const storeInputInPosition = (position)=>{
         let [a,b] = position.split('');
         [a,b] = [parseInt(a) , parseInt(b)]
         console.log(a,b)
-        gameBoard[a][b] = symbol;
+        gameBoard[a-1][b-1] = symbol;
     }
 
-    const playGame = ()=>{
+    const playGame = (position)=>{
         if(numberOfTurns==9){
             return false
         }
-        const promptInput = prompt("00 01 02\n10 11 12\n20 21 22");
-        storeInputInPosition(promptInput,symbol);
+        storeInputInPosition(position);
         numberOfTurns++;
         if (checkVictory(symbol)){
             console.log(symbol+'you won');
@@ -97,7 +88,36 @@ const game = (function Board(){
         return (checkLeftDaigonal||checkRightDaigonal) && gameBoard[1][1]==symbol
     }
 
-    return {gameBoard , startGame,playGame}
+    const getCurrentSymbol = ()=>symbol;
+
+    return {gameBoard ,playGame,getCurrentSymbol}
     
 
 })();
+
+
+
+const gameDom = (function Playground(){
+    let squareDiv = document.querySelectorAll('.square');
+    const squareDivArray = Array.from(squareDiv);
+
+    squareDivArray.forEach((element)=>{
+        element.addEventListener('click',()=>{
+            //elements id is square$$ eg 11
+            if(element.textContent !=''){
+                return 0;
+            }
+            let position  = element.id.slice(-2);
+            console.log(position)
+            element.textContent = game.getCurrentSymbol()
+            game.playGame(position)
+
+
+
+        })
+
+    })
+    
+
+} )()
+
