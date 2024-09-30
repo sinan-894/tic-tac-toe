@@ -17,12 +17,14 @@ const game = (function Board(){
         }
         storeInputInPosition(position);
         numberOfTurns++;
-        if (checkVictory(symbol)){
+        if (checkVictory()){
             console.log(symbol+'you won');
+            endGame(true)
             return 0;
         }
         if(numberOfTurns==9){
             console.log('Draw');
+            endGame(false)
             return 0;
         }
         symbol = (symbol=='X')?'O':'X'
@@ -94,6 +96,20 @@ const game = (function Board(){
         numberOfTurns = 0
     }
 
+    const endGame = (isWin)=>{
+        if(isWin){
+            let [startingPlayer ,firstPlayerName,secondPlayerName] = gameSeries.getPlayerNames
+            if(symbol=='X'){
+                (startingPlayer==firstPlayerName)?gameSeries.giveScoreToFirstPlayer():gameSeries.giveScoreToSecondPlayer()
+
+            }
+            else{
+                (startingPlayer==firstPlayerName)?gameSeries.giveScoreToSecondPlayer():gameSeries.giveScoreToFirstPlayer()
+            }
+        }
+        gameSeries.gameEnd()
+    }
+
 
     return {gameBoard ,playGame,getCurrentSymbol,resetGame}
     
@@ -103,6 +119,7 @@ const game = (function Board(){
 
 
 const gameDom = (function Playground(){
+    gameSeries.gameStart()
     let squareDiv = document.querySelectorAll('.square');
     const squareDivArray = Array.from(squareDiv);
 
@@ -137,7 +154,7 @@ const gameDom = (function Playground(){
 } )()
 
 
-gameSeries = (function Series(){
+const gameSeries = (function Series(){
     let firstPlayerScore = 0;
     let secondPlayerScore  = 0;
     let firstPlayerName  = 'player1';
@@ -167,7 +184,7 @@ gameSeries = (function Series(){
     }
 
     const getPlayerNames = ()=>{
-        return [firstPlayerName,secondPlayerName]
+        return [startingPlayer,firstPlayerName,secondPlayerName]
     }
 
     const getScores = ()=>{
@@ -179,6 +196,6 @@ gameSeries = (function Series(){
         secondPlayerScore  = 0;
     }
 
-    return {startingPlayerSymbol,gameStart,giveScoreToFirstPlayer,giveScoreToSecondPlayer,setPlayerNames,gameEnd,getPlayerNames,getScores}
+    return {gameStart,giveScoreToFirstPlayer,giveScoreToSecondPlayer,setPlayerNames,gameEnd,getPlayerNames,getScores,retartGame}
 })()
 
