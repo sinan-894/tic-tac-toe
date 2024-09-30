@@ -90,7 +90,16 @@ const game = (function Board(){
 
     const getCurrentSymbol = ()=>symbol;
 
-    return {gameBoard ,playGame,getCurrentSymbol}
+    const resetGame = ()=>{
+        for(let i = 0;i<3;i++){
+            for(let j=0;j<3;j++){
+                gameBoard[i][j] = '-'
+            }
+        }
+    }
+
+
+    return {gameBoard ,playGame,getCurrentSymbol,resetGame}
     
 
 })();
@@ -117,6 +126,17 @@ const gameDom = (function Playground(){
         })
 
     })
+
+
+
+    const resetBoard = ()=>{
+        squareDivArray.forEach((element)=>{
+            element.textContent = '';
+        })
+        game.resetGame()
+    }
+    const resetButton = document.querySelector('.reset')
+    resetButton.addEventListener('click',resetBoard)
     
 
 } )()
