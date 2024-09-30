@@ -180,15 +180,8 @@ const gameDom = (function Playground(){
             let position  = element.id.slice(-2);
             element.textContent = game.getCurrentSymbol()
             game.playGame(position)
-
-
-
         })
-
     })
-
-
-
     const resetBoard = ()=>{
         squareDivArray.forEach((element)=>{
             element.textContent = '';
@@ -198,6 +191,5 @@ const gameDom = (function Playground(){
     const resetButton = document.querySelector('.reset')
     resetButton.addEventListener('click',resetBoard)
     
-
 } )()
 
