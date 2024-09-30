@@ -1,0 +1,56 @@
+:root{
+    --square-border-style:1px solid black;
+}
+
+.playground{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+
+#square1{
+    border-right: var(--square-border-style);
+    border-bottom: var(--square-border-style) ;
+}
+#square2{
+    border-right: var(--square-border-style);
+    border-bottom: var(--square-border-style) ;
+}
+#square3{
+    border-bottom: var(--square-border-style) ;
+}
+#square4{
+    border-bottom: var(--square-border-style) ;
+    border-right: var(--square-border-style);
+}
+
+#square5{
+    border-bottom: var(--square-border-style) ;
+    border-right: var(--square-border-style);
+}
+#square6{
+    border-bottom: var(--square-border-style) ;
+}
+#square7{
+    
+    border-right: var(--square-border-style);
+}
+#square8{
+    
+    border-right: var(--square-border-style);
+}
+
+
+
+.square{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+}

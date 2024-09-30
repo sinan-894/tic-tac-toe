@@ -32,9 +32,11 @@ const game = (function Board(){
         numberOfTurns++;
         if (checkVictory(symbol)){
             console.log(symbol+'you won');
+            return 0;
         }
         if(numberOfTurns==9){
             console.log('Draw');
+            return 0;
         }
         console.log(gameBoard)
         symbol = (symbol=='X')?'O':'X'
