@@ -96,6 +96,7 @@ const game = (function Board(){
                 gameBoard[i][j] = '-'
             }
         }
+        numberOfTurns = 0
     }
 
 
@@ -119,7 +120,9 @@ const gameDom = (function Playground(){
             let position  = element.id.slice(-2);
             console.log(position)
             element.textContent = game.getCurrentSymbol()
+            console.log(game.getCurrentSymbol())
             game.playGame(position)
+            console.log('success')
 
 
 
