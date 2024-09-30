@@ -98,14 +98,12 @@ const game = (function Board(){
 
     const endGame = (isWin)=>{
         if(isWin){
-            let [startingPlayer ,firstPlayerName,secondPlayerName] = gameSeries.getPlayerNames
             if(symbol=='X'){
-                (startingPlayer==firstPlayerName)?gameSeries.giveScoreToFirstPlayer():gameSeries.giveScoreToSecondPlayer()
+               gameSeries.giveScoreToFirstPlayer()
 
             }
             else{
-                (startingPlayer==firstPlayerName)?gameSeries.giveScoreToSecondPlayer():gameSeries.giveScoreToFirstPlayer()
-            }
+               gameSeries.giveScoreToSecondPlayer()
         }
         gameSeries.gameEnd()
     }
@@ -168,10 +166,10 @@ const gameSeries = (function Series(){
         return gameNumber
     }
     const giveScoreToFirstPlayer = ()=>{
-        firstPlayerScore++;
+        (startingPlayer==firstPlayerName)?firstPlayerScore++:secondPlayerScore++
     }
     const giveScoreToSecondPlayer = ()=>{
-        secondPlayerScore++;
+        (startingPlayer==firstPlayerName)?secondPlayerScore++:firstPlayerScore++
     }
     const setPlayerNames = (first,second)=>{
         startingPlayer = (startingPlayer==firstPlayerName)?first:second
