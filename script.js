@@ -1,9 +1,6 @@
 
 const game = (function Board(){
-    const gameBoard = [['-','-','-'],['-','-','-'],['-','-','-']]
-    console.log(gameBoard)
-    const firstPlayer='X';
-    const secondPlayer='O';
+    const gameBoard = [['-','-','-'],['-','-','-'],['-','-','-']];
     let symbol = 'X';
     let numberOfTurns = 0;
 
@@ -11,7 +8,6 @@ const game = (function Board(){
     const storeInputInPosition = (position)=>{
         let [a,b] = position.split('');
         [a,b] = [parseInt(a) , parseInt(b)]
-        console.log(a,b)
         gameBoard[a-1][b-1] = symbol;
     }
 
@@ -29,7 +25,6 @@ const game = (function Board(){
             console.log('Draw');
             return 0;
         }
-        console.log(gameBoard)
         symbol = (symbol=='X')?'O':'X'
     }
 
@@ -118,11 +113,8 @@ const gameDom = (function Playground(){
                 return 0;
             }
             let position  = element.id.slice(-2);
-            console.log(position)
             element.textContent = game.getCurrentSymbol()
-            console.log(game.getCurrentSymbol())
             game.playGame(position)
-            console.log('success')
 
 
 
@@ -143,4 +135,50 @@ const gameDom = (function Playground(){
     
 
 } )()
+
+
+gameSeries = (function Series(){
+    let firstPlayerScore = 0;
+    let secondPlayerScore  = 0;
+    let firstPlayerName  = 'player1';
+    let secondPlayerName = 'player2';
+    let startingPlayer = firstPlayerName;
+    const startingPlayerSymbol  = 'X';
+    let gameNumber = 0;
+
+    const gameStart = ()=>{
+        gameNumber++;
+        return gameNumber
+    }
+    const giveScoreToFirstPlayer = ()=>{
+        firstPlayerScore++;
+    }
+    const giveScoreToSecondPlayer = ()=>{
+        secondPlayerScore++;
+    }
+    const setPlayerNames = (first,second)=>{
+        startingPlayer = (startingPlayer==firstPlayerName)?first:second
+        firstPlayerName = first;
+        secondPlayerName = second;
+    }
+
+    const gameEnd = ()=>{
+        startingPlayer = (startingPlayer==firstPlayerName)?secondPlayerName:firstPlayerName
+    }
+
+    const getPlayerNames = ()=>{
+        return [firstPlayerName,secondPlayerName]
+    }
+
+    const getScores = ()=>{
+        return [firstPlayerScore,secondPlayerScore]
+    }
+    const retartGame = ()=>{
+        gameNumber = 0;
+        firstPlayerScore = 0;
+        secondPlayerScore  = 0;
+    }
+
+    return {startingPlayerSymbol,gameStart,giveScoreToFirstPlayer,giveScoreToSecondPlayer,setPlayerNames,gameEnd,getPlayerNames,getScores}
+})()
 
