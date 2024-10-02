@@ -108,8 +108,11 @@ const game = (function Board(){
                gameDom.showResultAndCountinue('O')
             }
         }
-    gameDom.updateScoresAndGameNumber()
-    gameSeries.gameEnd()
+        else{
+            gameDom.showResultAndCountinue('Draw')
+        }
+        gameDom.updateScores()
+        gameSeries.gameEnd()
     }
 
 
@@ -134,7 +137,8 @@ const gameSeries = (function Series(){
 
     const gameStart = ()=>{
         gameNumber++;
-        return gameNumber
+
+        console.log("game start" + gameNumber)
     }
     const giveScoreToFirstPlayer = ()=>{
         (startingPlayer==firstPlayerName)?firstPlayerScore++:secondPlayerScore++
@@ -149,8 +153,7 @@ const gameSeries = (function Series(){
     }
 
     const gameEnd = ()=>{
-        startingPlayer = (startingPlayer==firstPlayerName)?secondPlayerName:firstPlayerName
-        gameNumber = 0
+        startingPlayer = (startingPlayer==firstPlayerName)?secondPlayerName:firstPlayerName;
     }
 
     const getPlayerNames = ()=>{
@@ -214,26 +217,33 @@ const gameDom = (function Playground(){
             gameSeries.gameStart()
             displayResultDiv.textContent = '';
             resultDiv.removeChild(countinueButton);
+            updateGameNumber()
         })
         resultDiv.appendChild(countinueButton);
     }
 
-    const updateScoresAndGameNumber = ()=>{
+    const updateScores = ()=>{
         const firstPlayerScoreDisplay = document.querySelector('.player1-score');
         const secondPlayerScoreDisplay = document.querySelector('.player2-score');
-        const gameNumberDisplay = document.querySelector('.game-number');
+        
 
         const [firstPlayerScore,secondPlayerScore] = gameSeries.getScores()
-        const gameNumber = gameSeries.getGameNumber()
+        
 
         firstPlayerScoreDisplay.textContent = firstPlayerScore
         secondPlayerScoreDisplay.textContent = secondPlayerScore
-        gameNumberDisplay.textContent = gameNumber;
+        
 
 
     }
+
+    const updateGameNumber = ()=>{
+        const gameNumberDisplay = document.querySelector('.game-number');
+        const gameNumber = gameSeries.getGameNumber()
+        gameNumberDisplay.textContent = gameNumber;
+    }
     
-    return {showResultAndCountinue,updateScoresAndGameNumber}
+    return {showResultAndCountinue,updateScores}
 
 } )()
 
