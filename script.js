@@ -19,18 +19,15 @@ const game = (function Board(){
         storeInputInPosition(position);
         numberOfTurns++;
         if (checkVictory()){
-            console.log(symbol+'you won');
             isNotPlayable = true
             endGame(true)
             return 0;
         }
         if(numberOfTurns==9){
-            console.log('Draw');
             endGame(false)
             return 0;
         }
         symbol = (symbol=='X')?'O':'X'
-        console.log('ssss'+symbol)
         gameDom.switchColorBasedOnPlayer(symbol)
         
     }
@@ -101,7 +98,8 @@ const game = (function Board(){
 
     const endGame = (isWin)=>{
         if(isWin){
-            let player = (isPlayerOne())?'player 1':'player 2'
+            let [startingPlayer,firstPlayerName,secondPlayerName] = gameSeries.getPlayerNames()
+            let player = (isPlayerOne())?firstPlayerName:secondPlayerName
             if(symbol=='X'){
                gameSeries.giveScoreToFirstPlayer();
                gameDom.showResultAndCountinue(player)
@@ -192,7 +190,26 @@ const gameSeries = (function Series(){
 })()
 
 const gameDom = (function Playground(){
-    gameSeries.gameStart()   
+    const dialogName = document.querySelector('.name-dialog');
+    const startButton = document.querySelector('#start');
+    const playerOne = document.querySelector('#player1');
+    const playerTwo = document.querySelector('#player2');
+    const playerOneName = document.querySelector('.player1-name');
+    const playerTwoName = document.querySelector('.player2-name');
+    dialogName.showModal();
+    startButton.addEventListener('click',(event)=>{
+        event.preventDefault();
+        let playerOneValue = (playerOne.value=='')?'player 1':playerOne.value
+        let playerTwoValue = (playerTwo.value=='')?'player 2':playerTwo.value
+        console.log(playerOneValue,playerTwoValue)
+        gameSeries.setPlayerNames(playerOneValue,playerTwoValue)
+        playerOneName.textContent = playerOneValue+' : ';
+        playerTwoName.textContent = playerTwoValue+' : ';
+        dialogName.close()
+        console.log('start')
+        gameSeries.gameStart()
+
+    })  
     switchColorBasedOnPlayer(game.getCurrentSymbol())
     let squareDiv = document.querySelectorAll('.square');
     const squareDivArray = Array.from(squareDiv);
@@ -237,13 +254,14 @@ const gameDom = (function Playground(){
         dialog.showModal();
         const countinueButton = document.querySelector('.countinue');
 
-        countinueButton.addEventListener('click',(event)=>{
+        countinueButton.addEventListener('click',()=>{
+            dialog.close()
             resetBoard()
+            console.log('countiniue')
             gameSeries.gameStart()
             updateGameNumber()
             updatePlayerSymbol()
             switchColorBasedOnPlayer(game.getCurrentSymbol())
-            dialog.close()
         })
     }
 
@@ -287,7 +305,6 @@ const gameDom = (function Playground(){
 
     function switchColorBasedOnPlayer(symbol){
         const container = document.querySelector('.container');
-        console.log('symbol'+symbol)
         if(game.isPlayerOne()){
             container.classList.remove('player2');
             container.classList.add('player1');

@@ -2,6 +2,8 @@
     --square-border-style:3px solid #cbd5e1;
     --player-1-color:green;
     --player-2-color:red;
+
+    --dialog-theme-color:#6d28d9;
 }
 
 body{
@@ -141,7 +143,7 @@ body{
 dialog{
     font-size: 1.5em;
     font-weight: 900;
-    border: 3px solid #6d28d9;
+    border: 3px solid var(--dialog-theme-color);
     border-radius: 20px;
     padding: 30px;
 }
@@ -157,11 +159,44 @@ dialog{
 
 }
 
-.countinue{
+.countinue,#start{
     font-size: 1.5rem;
     padding: 10px;
-    background-color: #6d28d9;
+    background-color: var(--dialog-theme-color);
     border: 0px;
     border-radius: 20px;
     color: #fce7f3;
+}
+
+#start{
+    padding: 10px 20px;
+}
+
+#player1,#player2{
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 15px;
+    outline: none;
+    border:  2px solid var(--dialog-theme-color); 
+}
+
+.player1-input,.player2-input{
+    margin-bottom: 20px;
+}
+
+.name-heading{
+    text-align: center;
+    padding-bottom: 10px;
+    color: var(--dialog-theme-color);
+}
+
+.start-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+::backdrop{
+    background-color: white;
+    opacity: 50%;
 }
