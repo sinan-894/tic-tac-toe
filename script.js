@@ -94,6 +94,7 @@ const game = (function Board(){
             }
         }
         numberOfTurns = 0
+        symbol = 'X'
     }
 
     const endGame = (isWin)=>{
@@ -113,6 +114,7 @@ const game = (function Board(){
         }
         gameDom.updateScores()
         gameSeries.gameEnd()
+        symbol = 'X'
     }
 
 
