@@ -7,6 +7,14 @@
     justify-content: center;
 }
 
+.player1{
+    background-color: green;
+}
+
+.player2{
+    background-color: red;
+}
+
 .container{
     display: grid;
     grid-template-columns: repeat(3,1fr);

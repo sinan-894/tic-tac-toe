@@ -30,6 +30,9 @@ const game = (function Board(){
             return 0;
         }
         symbol = (symbol=='X')?'O':'X'
+        console.log('ssss'+symbol)
+        gameDom.switchColorBasedOnPlayer(symbol)
+        
     }
 
     const checkVictory = ()=>{
@@ -130,7 +133,6 @@ const gameSeries = (function Series(){
     let firstPlayerName  = 'player1';
     let secondPlayerName = 'player2';
     let startingPlayer = firstPlayerName;
-    const startingPlayerSymbol  = 'X';
     let gameNumber = 0;
 
     const gameStart = ()=>{
@@ -170,6 +172,7 @@ const gameSeries = (function Series(){
         gameNumber = 0;
         firstPlayerScore = 0;
         secondPlayerScore  = 0;
+        startingPlayer = firstPlayerName
     }
 
     return {gameStart,giveScoreToFirstPlayer,giveScoreToSecondPlayer,setPlayerNames,gameEnd,getPlayerNames,getScores,restartGame,getGameNumber}
@@ -177,6 +180,38 @@ const gameSeries = (function Series(){
 
 const gameDom = (function Playground(){
     gameSeries.gameStart()
+    const switchColorBasedOnPlayer=(symbol)=>{
+        const container = document.querySelector('.container');
+        let [startingPlayer,firstPlayerName,secondPlayerName] = gameSeries.getPlayerNames()
+        const playerOne = ()=>{
+            container.classList.remove('player2');
+            container.classList.add('player1');
+        }
+
+        const playerTwo = ()=>{
+            container.classList.remove('player1');
+            container.classList.add('player2');
+        }
+        console.log('symbol'+symbol)
+        if(startingPlayer==firstPlayerName){
+            if(symbol=='X'){
+                playerOne()
+            }
+            else{
+                playerTwo()
+            }
+        }
+        else{
+            if(symbol=='X'){
+                playerTwo()
+            }
+            else{
+                playerOne()
+            }
+        }
+
+    }   
+    switchColorBasedOnPlayer(game.getCurrentSymbol())
     let squareDiv = document.querySelectorAll('.square');
     const squareDivArray = Array.from(squareDiv);
 
@@ -201,13 +236,16 @@ const gameDom = (function Playground(){
     resetButton.addEventListener('click',resetBoard)
 
     const restartButton = document.querySelector('.restart');
-    console.log(restartButton)
+    
     restartButton.addEventListener('click',()=>{
         console.log('restart')
         resetBoard()
         gameSeries.restartGame()
         updateScores()
+        gameSeries.gameStart()
         updateGameNumber()
+        updatePlayerSymbol()
+        switchColorBasedOnPlayer(game.getCurrentSymbol())
     })
     
     const showResultAndCountinue = (playerWhoWon)=>{
@@ -226,6 +264,7 @@ const gameDom = (function Playground(){
             resultDiv.removeChild(countinueButton);
             updateGameNumber()
             updatePlayerSymbol()
+            switchColorBasedOnPlayer(game.getCurrentSymbol())
         })
         resultDiv.appendChild(countinueButton);
     }
@@ -269,7 +308,7 @@ const gameDom = (function Playground(){
 
     }
     
-    return {showResultAndCountinue,updateScores}
+    return {showResultAndCountinue,updateScores,switchColorBasedOnPlayer}
 
 } )()
 
