@@ -121,8 +121,20 @@ const game = (function Board(){
 
     const isFreezed = ()=>isNotPlayable;
 
+    const isPlayerOne = ()=>{
+        let [startingPlayer,firstPlayerName,secondPlayerName] = gameSeries.getPlayerNames()
+        
+        if ((startingPlayer==firstPlayerName && symbol=='X') || 
+            (startingPlayer==secondPlayerName && symbol=='O')){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
-    return {gameBoard ,playGame,getCurrentSymbol,resetGame,isFreezed}
+
+    return {gameBoard ,playGame,getCurrentSymbol,resetGame,isFreezed,isPlayerOne}
     
 
 })();
@@ -179,38 +191,7 @@ const gameSeries = (function Series(){
 })()
 
 const gameDom = (function Playground(){
-    gameSeries.gameStart()
-    const switchColorBasedOnPlayer=(symbol)=>{
-        const container = document.querySelector('.container');
-        let [startingPlayer,firstPlayerName,secondPlayerName] = gameSeries.getPlayerNames()
-        const playerOne = ()=>{
-            container.classList.remove('player2');
-            container.classList.add('player1');
-        }
-
-        const playerTwo = ()=>{
-            container.classList.remove('player1');
-            container.classList.add('player2');
-        }
-        console.log('symbol'+symbol)
-        if(startingPlayer==firstPlayerName){
-            if(symbol=='X'){
-                playerOne()
-            }
-            else{
-                playerTwo()
-            }
-        }
-        else{
-            if(symbol=='X'){
-                playerTwo()
-            }
-            else{
-                playerOne()
-            }
-        }
-
-    }   
+    gameSeries.gameStart()   
     switchColorBasedOnPlayer(game.getCurrentSymbol())
     let squareDiv = document.querySelectorAll('.square');
     const squareDivArray = Array.from(squareDiv);
@@ -294,9 +275,8 @@ const gameDom = (function Playground(){
         const firstPlayerSymbolDisplay = document.querySelector('.player1-symbol');
         const secondPlayerSymbolDisplay = document.querySelector('.player2-symbol');
 
-        let [startingPlayer,firstPlayerName,secondPlayerName] = gameSeries.getPlayerNames()
 
-        if(startingPlayer==firstPlayerName){
+        if(game.isPlayerOne()==1){
             firstPlayerSymbolDisplay.textContent = 'X';
             secondPlayerSymbolDisplay.textContent =' O';
         }
@@ -305,6 +285,20 @@ const gameDom = (function Playground(){
             secondPlayerSymbolDisplay.textContent =' X';
         }
 
+
+    }
+
+    function switchColorBasedOnPlayer(symbol){
+        const container = document.querySelector('.container');
+        console.log('symbol'+symbol)
+        if(game.isPlayerOne()){
+            container.classList.remove('player2');
+            container.classList.add('player1');
+        }
+        else{
+            container.classList.remove('player1');
+            container.classList.add('player2');
+        }
 
     }
     
