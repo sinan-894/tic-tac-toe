@@ -3,6 +3,7 @@ const game = (function Board(){
     const gameBoard = [['-','-','-'],['-','-','-'],['-','-','-']];
     let symbol = 'X';
     let numberOfTurns = 0;
+    let isNotPlayable = false
 
 
     const storeInputInPosition = (position)=>{
@@ -19,6 +20,7 @@ const game = (function Board(){
         numberOfTurns++;
         if (checkVictory()){
             console.log(symbol+'you won');
+            isNotPlayable = true
             endGame(true)
             return 0;
         }
@@ -31,10 +33,6 @@ const game = (function Board(){
     }
 
     const checkVictory = ()=>{
-        
-
-        
-
         return rowCheck() || daigonalCheck() || columnCheck()
     }
 
@@ -95,6 +93,7 @@ const game = (function Board(){
         }
         numberOfTurns = 0
         symbol = 'X'
+        isNotPlayable=false
     }
 
     const endGame = (isWin)=>{
@@ -117,8 +116,10 @@ const game = (function Board(){
         symbol = 'X'
     }
 
+    const isFreezed = ()=>isNotPlayable;
 
-    return {gameBoard ,playGame,getCurrentSymbol,resetGame}
+
+    return {gameBoard ,playGame,getCurrentSymbol,resetGame,isFreezed}
     
 
 })();
@@ -182,7 +183,7 @@ const gameDom = (function Playground(){
     squareDivArray.forEach((element)=>{
         element.addEventListener('click',()=>{
             //elements id is square$$ eg 11
-            if(element.textContent !=''){
+            if(game.isFreezed() || element.textContent !=''){
                 return 0;
             }
             let position  = element.id.slice(-2);
