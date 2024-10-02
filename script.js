@@ -225,6 +225,7 @@ const gameDom = (function Playground(){
             displayResultDiv.textContent = '';
             resultDiv.removeChild(countinueButton);
             updateGameNumber()
+            updatePlayerSymbol()
         })
         resultDiv.appendChild(countinueButton);
     }
@@ -248,6 +249,24 @@ const gameDom = (function Playground(){
         const gameNumberDisplay = document.querySelector('.game-number');
         const gameNumber = gameSeries.getGameNumber()
         gameNumberDisplay.textContent = gameNumber;
+    }
+
+    const updatePlayerSymbol = ()=>{
+        const firstPlayerSymbolDisplay = document.querySelector('.player1-symbol');
+        const secondPlayerSymbolDisplay = document.querySelector('.player2-symbol');
+
+        let [startingPlayer,firstPlayerName,secondPlayerName] = gameSeries.getPlayerNames()
+
+        if(startingPlayer==firstPlayerName){
+            firstPlayerSymbolDisplay.textContent = 'X';
+            secondPlayerSymbolDisplay.textContent =' O';
+        }
+        else{
+            firstPlayerSymbolDisplay.textContent = 'O';
+            secondPlayerSymbolDisplay.textContent =' X';
+        }
+
+
     }
     
     return {showResultAndCountinue,updateScores}
