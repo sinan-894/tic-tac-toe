@@ -100,10 +100,12 @@ const game = (function Board(){
         if(isWin){
             if(symbol=='X'){
                gameSeries.giveScoreToFirstPlayer();
+               gameDom.showResultAndCountinue('X')
 
             }
             else{
                gameSeries.giveScoreToSecondPlayer();
+               gameDom.showResultAndCountinue('O')
             }
         }
     gameSeries.gameEnd()
@@ -147,6 +149,7 @@ const gameSeries = (function Series(){
 
     const gameEnd = ()=>{
         startingPlayer = (startingPlayer==firstPlayerName)?secondPlayerName:firstPlayerName
+        gameNumber = 0
     }
 
     const getPlayerNames = ()=>{
@@ -156,13 +159,13 @@ const gameSeries = (function Series(){
     const getScores = ()=>{
         return [firstPlayerScore,secondPlayerScore]
     }
-    const retartGame = ()=>{
+    const restartGame = ()=>{
         gameNumber = 0;
         firstPlayerScore = 0;
         secondPlayerScore  = 0;
     }
 
-    return {gameStart,giveScoreToFirstPlayer,giveScoreToSecondPlayer,setPlayerNames,gameEnd,getPlayerNames,getScores,retartGame}
+    return {gameStart,giveScoreToFirstPlayer,giveScoreToSecondPlayer,setPlayerNames,gameEnd,getPlayerNames,getScores,restartGame}
 })()
 
 
@@ -191,5 +194,25 @@ const gameDom = (function Playground(){
     const resetButton = document.querySelector('.reset')
     resetButton.addEventListener('click',resetBoard)
     
+    const showResultAndCountinue = (playerWhoWon)=>{
+        const resultDiv  = document.querySelector('.result');
+        const displayResultDiv = document.querySelector('.who-won');
+        displayResultDiv.textContent = playerWhoWon;
+
+        const countinueButton = document.createElement('button');
+        countinueButton.classList.add('countinue');
+        countinueButton.textContent = 'Countinue'
+
+        countinueButton.addEventListener('click',()=>{
+            resetBoard()
+            gameSeries.gameStart()
+            displayResultDiv.textContent = '';
+            resultDiv.removeChild(countinueButton);
+        })
+        resultDiv.appendChild(countinueButton);
+    }
+    
+    return {showResultAndCountinue}
+
 } )()
 
