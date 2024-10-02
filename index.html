@@ -9,33 +9,48 @@
 </head>
 <body>
 
-    <div class="heading">tic-tac-toe</div>
+    <div class="heading">Tic-Tac-Toe</div>
 
     <div class="info">
-        Game Number : <section class="game-number">1</section> <br>
-        Scores: <br>
-        player 1 :<section class="player1-symbol">x</section> <section class="player1-score">0</section> <br>
-        player 2 :<section class="player2-symbol">o</section> <section class="player2-score">0</section> <br>
-        <button class="restart">restart</button>
+        <section class="player1">
+            <span class="player1-name">player 1:</span><span class="player1-score">0</span>
+            <section class="player1-symbol">X</section>
+        </section>
+
+        <section class="game-info">
+            <section class="game-heading">Game</section>
+            <section class="game-number">1</section>
+        </section>
+
+        <section class="player2">
+            <span class="player2-name">player 2:</span><span class="player2-score">0</span>
+            <section class="player2-symbol">O</section>
+        </section>
+        <div class="restart-button"><button class="restart">Restart</button></div>  
     </div>
 
     <div class="playground">
-        <div class="container">
-            <div id="square11" class="square"></div>
-            <div id="square12" class="square"></div>
-            <div id="square13" class="square"></div>
-            <div id="square21" class="square"></div>
-            <div id="square22" class="square"></div>
-            <div id="square23" class="square"></div>
-            <div id="square31" class="square"></div>
-            <div id="square32" class="square"></div>
-            <div id="square33" class="square"></div>
+        <div class="board">
+            <div class="container">
+                <div id="square11" class="square"></div>
+                <div id="square12" class="square"></div>
+                <div id="square13" class="square"></div>
+                <div id="square21" class="square"></div>
+                <div id="square22" class="square"></div>
+                <div id="square23" class="square"></div>
+                <div id="square31" class="square"></div>
+                <div id="square32" class="square"></div>
+                <div id="square33" class="square"></div>
+            </div>
         </div>
-        <button class="reset"> reset</button>
+        <section class="reset-button"><button class="reset"> reset</button></section>
     </div>
 
     <div class="result">
-        <section class="who-won"></section>
+        <dialog class="result-dialog" >
+            <section class="result-text"></section>
+            <section class="countinue-button"><button class="countinue">countinue</button></section>
+        </dialog>
     </div>
     
 </body>

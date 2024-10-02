@@ -101,14 +101,15 @@ const game = (function Board(){
 
     const endGame = (isWin)=>{
         if(isWin){
+            let player = (isPlayerOne())?'player 1':'player 2'
             if(symbol=='X'){
                gameSeries.giveScoreToFirstPlayer();
-               gameDom.showResultAndCountinue('X')
+               gameDom.showResultAndCountinue(player)
 
             }
             else{
                gameSeries.giveScoreToSecondPlayer();
-               gameDom.showResultAndCountinue('O')
+               gameDom.showResultAndCountinue(player)
             }
         }
         else{
@@ -230,24 +231,20 @@ const gameDom = (function Playground(){
     })
     
     const showResultAndCountinue = (playerWhoWon)=>{
-        const resultDiv  = document.querySelector('.result');
-        const displayResultDiv = document.querySelector('.who-won');
-        displayResultDiv.textContent = playerWhoWon;
+        const dialog  = document.querySelector('.result-dialog');
+        const displayResultDiv = document.querySelector('.result-text')
+        displayResultDiv.textContent = `${playerWhoWon} WINS!!!!`;
+        dialog.showModal();
+        const countinueButton = document.querySelector('.countinue');
 
-        const countinueButton = document.createElement('button');
-        countinueButton.classList.add('countinue');
-        countinueButton.textContent = 'Countinue'
-
-        countinueButton.addEventListener('click',()=>{
+        countinueButton.addEventListener('click',(event)=>{
             resetBoard()
             gameSeries.gameStart()
-            displayResultDiv.textContent = '';
-            resultDiv.removeChild(countinueButton);
             updateGameNumber()
             updatePlayerSymbol()
             switchColorBasedOnPlayer(game.getCurrentSymbol())
+            dialog.close()
         })
-        resultDiv.appendChild(countinueButton);
     }
 
     const updateScores = ()=>{

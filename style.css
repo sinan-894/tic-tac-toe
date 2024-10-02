@@ -1,19 +1,50 @@
 :root{
-    --square-border-style:1px solid black;
+    --square-border-style:3px solid #cbd5e1;
+    --player-1-color:green;
+    --player-2-color:red;
 }
 
-.playground{
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: #0f172a;
+}
+
+
+.board{
     display: flex;
     justify-content: center;
+    padding: 50px;
+    padding-bottom: 20px;
 }
 
-.player1{
+.reset-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reset{
+    font-size: 1.5em;
+    padding: 5px 30px;
+    border-radius: 20px;
+    border: 0px;
+}
+
+.heading{
+    text-align: center;
+    background-color: #d97706;
+    font-size: 2em;
+}
+
+
+/* .player1{
     background-color: green;
 }
 
 .player2{
     background-color: red;
-}
+} */
 
 .container{
     display: grid;
@@ -55,10 +86,82 @@
 
 
 .square{
-    height: 50px;
-    width: 50px;
+    height: 90px;
+    width: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2em;
+}
+
+
+.info{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #67e8f9;
+    padding: 20px 30px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.restart-button{
+    grid-column: 1/span 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px ;
+
+}
+
+.restart{
+    width: 150px;
+    height: 50px;
+    font-size: 1em;
+    border-radius: 20px;
+    border: 0px;
+}
+
+.player1{
+    justify-self: start;
+    color: var(--player-1-color);
+
+}
+
+.player2{
+    justify-self: end;
+    color: var(--player-2-color);
+}
+
+.game-info{
+    justify-self: center;
+}
+
+
+dialog{
+    font-size: 1.5em;
+    font-weight: 900;
+    border: 3px solid #6d28d9;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.result-text{
+    padding: 30px;
+}
+.countinue-button{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.countinue{
+    font-size: 1.5rem;
+    padding: 10px;
+    background-color: #6d28d9;
+    border: 0px;
+    border-radius: 20px;
+    color: #fce7f3;
 }
