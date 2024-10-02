@@ -121,11 +121,6 @@ const game = (function Board(){
 
 })();
 
-
-
-
-
-
 const gameSeries = (function Series(){
     let firstPlayerScore = 0;
     let secondPlayerScore  = 0;
@@ -177,7 +172,6 @@ const gameSeries = (function Series(){
     return {gameStart,giveScoreToFirstPlayer,giveScoreToSecondPlayer,setPlayerNames,gameEnd,getPlayerNames,getScores,restartGame,getGameNumber}
 })()
 
-
 const gameDom = (function Playground(){
     gameSeries.gameStart()
     let squareDiv = document.querySelectorAll('.square');
@@ -202,6 +196,16 @@ const gameDom = (function Playground(){
     }
     const resetButton = document.querySelector('.reset')
     resetButton.addEventListener('click',resetBoard)
+
+    const restartButton = document.querySelector('.restart');
+    console.log(restartButton)
+    restartButton.addEventListener('click',()=>{
+        console.log('restart')
+        resetBoard()
+        gameSeries.restartGame()
+        updateScores()
+        updateGameNumber()
+    })
     
     const showResultAndCountinue = (playerWhoWon)=>{
         const resultDiv  = document.querySelector('.result');
