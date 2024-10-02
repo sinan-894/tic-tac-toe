@@ -28,7 +28,6 @@ const game = (function Board(){
             return 0;
         }
         symbol = (symbol=='X')?'O':'X'
-        gameDom.switchColorBasedOnPlayer(symbol)
         
     }
 
@@ -202,7 +201,34 @@ const gameDom = (function Playground(){
     const resetButton = document.querySelector('.reset')
     let squareDiv = document.querySelectorAll('.square');
     const squareDivArray = Array.from(squareDiv);
+    const restartButton = document.querySelector('.restart');
+    
     dialogName.showModal();
+
+
+    
+    squareDivArray.forEach((element)=>{
+        element.addEventListener('click',()=>{
+            //elements id is square$$ eg 11
+            if(game.isFreezed() || element.textContent !=''){
+                return 0;
+            }
+            let position  = element.id.slice(-2);
+            element.textContent = game.getCurrentSymbol()
+            switchColorBasedOnPlayer(element)
+            game.playGame(position)
+            
+
+        })
+    })
+    const resetBoard = ()=>{
+        squareDivArray.forEach((element)=>{
+            element.textContent = '';
+        })
+        game.resetGame()
+    }
+    resetButton.addEventListener('click',resetBoard)
+    
     startButton.addEventListener('click',(event)=>{
         event.preventDefault();
         let playerOneValue = (playerOne.value=='')?'player 1':playerOne.value
@@ -216,28 +242,7 @@ const gameDom = (function Playground(){
         gameSeries.gameStart()
 
     })  
-    switchColorBasedOnPlayer(game.getCurrentSymbol())
-    squareDivArray.forEach((element)=>{
-        element.addEventListener('click',()=>{
-            //elements id is square$$ eg 11
-            if(game.isFreezed() || element.textContent !=''){
-                return 0;
-            }
-            let position  = element.id.slice(-2);
-            element.textContent = game.getCurrentSymbol()
-            game.playGame(position)
-        })
-    })
-    const resetBoard = ()=>{
-        squareDivArray.forEach((element)=>{
-            element.textContent = '';
-        })
-        game.resetGame()
-    }
-    resetButton.addEventListener('click',resetBoard)
 
-    const restartButton = document.querySelector('.restart');
-    
     restartButton.addEventListener('click',()=>{
         console.log('restart')
         resetBoard()
@@ -246,9 +251,7 @@ const gameDom = (function Playground(){
         gameSeries.gameStart()
         updateGameNumber()
         updatePlayerSymbol()
-        switchColorBasedOnPlayer(game.getCurrentSymbol())
     })
-
 
     countinueButton.addEventListener('click',()=>{
         dialogResult.close()
@@ -257,7 +260,6 @@ const gameDom = (function Playground(){
         gameSeries.gameStart()
         updateGameNumber()
         updatePlayerSymbol()
-        switchColorBasedOnPlayer(game.getCurrentSymbol())
     })
     
     const showResult = (playerWhoWon)=>{
@@ -304,20 +306,20 @@ const gameDom = (function Playground(){
 
     }
 
-    function switchColorBasedOnPlayer(symbol){
-        const container = document.querySelector('.container');
+    function switchColorBasedOnPlayer(element){
+
         if(game.isPlayerOne()){
-            container.classList.remove('player2');
-            container.classList.add('player1');
+            element.classList.remove('player2');
+            element.classList.add('player1');
         }
         else{
-            container.classList.remove('player1');
-            container.classList.add('player2');
+            element.classList.remove('player1');
+            element.classList.add('player2');
         }
 
     }
     
-    return {showResult,updateScores,switchColorBasedOnPlayer}
+    return {showResult,updateScores}
 
 } )()
 
