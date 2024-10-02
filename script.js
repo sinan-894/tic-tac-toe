@@ -108,6 +108,7 @@ const game = (function Board(){
                gameDom.showResultAndCountinue('O')
             }
         }
+    gameDom.updateScoresAndGameNumber()
     gameSeries.gameEnd()
     }
 
@@ -159,13 +160,18 @@ const gameSeries = (function Series(){
     const getScores = ()=>{
         return [firstPlayerScore,secondPlayerScore]
     }
+
+    const getGameNumber = ()=>{
+        return gameNumber
+    }
+
     const restartGame = ()=>{
         gameNumber = 0;
         firstPlayerScore = 0;
         secondPlayerScore  = 0;
     }
 
-    return {gameStart,giveScoreToFirstPlayer,giveScoreToSecondPlayer,setPlayerNames,gameEnd,getPlayerNames,getScores,restartGame}
+    return {gameStart,giveScoreToFirstPlayer,giveScoreToSecondPlayer,setPlayerNames,gameEnd,getPlayerNames,getScores,restartGame,getGameNumber}
 })()
 
 
@@ -211,8 +217,23 @@ const gameDom = (function Playground(){
         })
         resultDiv.appendChild(countinueButton);
     }
+
+    const updateScoresAndGameNumber = ()=>{
+        const firstPlayerScoreDisplay = document.querySelector('.player1-score');
+        const secondPlayerScoreDisplay = document.querySelector('.player2-score');
+        const gameNumberDisplay = document.querySelector('.game-number');
+
+        const [firstPlayerScore,secondPlayerScore] = gameSeries.getScores()
+        const gameNumber = gameSeries.getGameNumber()
+
+        firstPlayerScoreDisplay.textContent = firstPlayerScore
+        secondPlayerScoreDisplay.textContent = secondPlayerScore
+        gameNumberDisplay.textContent = gameNumber;
+
+
+    }
     
-    return {showResultAndCountinue}
+    return {showResultAndCountinue,updateScoresAndGameNumber}
 
 } )()
 
