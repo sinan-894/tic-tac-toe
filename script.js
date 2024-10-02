@@ -102,16 +102,16 @@ const game = (function Board(){
             let player = (isPlayerOne())?firstPlayerName:secondPlayerName
             if(symbol=='X'){
                gameSeries.giveScoreToFirstPlayer();
-               gameDom.showResultAndCountinue(player)
+               gameDom.showResult(player)
 
             }
             else{
                gameSeries.giveScoreToSecondPlayer();
-               gameDom.showResultAndCountinue(player)
+               gameDom.showResult(player)
             }
         }
         else{
-            gameDom.showResultAndCountinue('Draw')
+            gameDom.showResult('Draw')
         }
         gameDom.updateScores()
         gameSeries.gameEnd()
@@ -196,6 +196,12 @@ const gameDom = (function Playground(){
     const playerTwo = document.querySelector('#player2');
     const playerOneName = document.querySelector('.player1-name');
     const playerTwoName = document.querySelector('.player2-name');
+    const dialogResult  = document.querySelector('.result-dialog');
+    const displayResultDiv = document.querySelector('.result-text');
+    const countinueButton = document.querySelector('.countinue');
+    const resetButton = document.querySelector('.reset')
+    let squareDiv = document.querySelectorAll('.square');
+    const squareDivArray = Array.from(squareDiv);
     dialogName.showModal();
     startButton.addEventListener('click',(event)=>{
         event.preventDefault();
@@ -211,9 +217,6 @@ const gameDom = (function Playground(){
 
     })  
     switchColorBasedOnPlayer(game.getCurrentSymbol())
-    let squareDiv = document.querySelectorAll('.square');
-    const squareDivArray = Array.from(squareDiv);
-
     squareDivArray.forEach((element)=>{
         element.addEventListener('click',()=>{
             //elements id is square$$ eg 11
@@ -231,7 +234,6 @@ const gameDom = (function Playground(){
         })
         game.resetGame()
     }
-    const resetButton = document.querySelector('.reset')
     resetButton.addEventListener('click',resetBoard)
 
     const restartButton = document.querySelector('.restart');
@@ -246,23 +248,22 @@ const gameDom = (function Playground(){
         updatePlayerSymbol()
         switchColorBasedOnPlayer(game.getCurrentSymbol())
     })
-    
-    const showResultAndCountinue = (playerWhoWon)=>{
-        const dialog  = document.querySelector('.result-dialog');
-        const displayResultDiv = document.querySelector('.result-text')
-        displayResultDiv.textContent = `${playerWhoWon} WINS!!!!`;
-        dialog.showModal();
-        const countinueButton = document.querySelector('.countinue');
 
-        countinueButton.addEventListener('click',()=>{
-            dialog.close()
-            resetBoard()
-            console.log('countiniue')
-            gameSeries.gameStart()
-            updateGameNumber()
-            updatePlayerSymbol()
-            switchColorBasedOnPlayer(game.getCurrentSymbol())
-        })
+
+    countinueButton.addEventListener('click',()=>{
+        dialogResult.close()
+        resetBoard()
+        console.log('countiniue')
+        gameSeries.gameStart()
+        updateGameNumber()
+        updatePlayerSymbol()
+        switchColorBasedOnPlayer(game.getCurrentSymbol())
+    })
+    
+    const showResult = (playerWhoWon)=>{
+        displayResultDiv.textContent = `${playerWhoWon} WINS!!!!`;
+        dialogResult.showModal();
+        
     }
 
     const updateScores = ()=>{
@@ -316,7 +317,7 @@ const gameDom = (function Playground(){
 
     }
     
-    return {showResultAndCountinue,updateScores,switchColorBasedOnPlayer}
+    return {showResult,updateScores,switchColorBasedOnPlayer}
 
 } )()
 
